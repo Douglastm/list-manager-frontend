@@ -1,0 +1,28 @@
+.container {
+  min-height: 100vh;
+}
+
+.content {
+  min-height: 100vh;
+
+  margin-left: 260px;
+
+  padding: 32px;
+
+  transition: margin-left 0.2s ease;
+}
+
+.content.collapsed {
+  margin-left: 68px;
+}
+
+.content h1 {
+  margin-bottom: 8px;
+
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.content p {
+  color: #666666;
+}
