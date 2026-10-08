@@ -3,8 +3,11 @@ import {
   ChevronLeft,
   ChevronRight,
   ListPlus,
+  LogOut,
   Settings,
 } from 'lucide-react';
+
+import { useAuth } from '../../hooks/useAuth';
 
 import styles from './Sidebar.module.css';
 
@@ -20,7 +23,12 @@ const lists = [
   { id: 4, name: 'Projetos' },
 ];
 
-export function Sidebar({ collapsed, onToggle }: SidebarProps) {
+export function Sidebar({
+  collapsed,
+  onToggle,
+}: SidebarProps) {
+  const { logout } = useAuth();
+
   return (
     <aside
       className={`${styles.sidebar} ${
@@ -34,7 +42,9 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
           </div>
 
           {!collapsed && (
-            <span className={styles.brandName}>List Manager</span>
+            <span className={styles.brandName}>
+              List Manager
+            </span>
           )}
         </div>
 
@@ -43,7 +53,9 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
           className={styles.toggleButton}
           onClick={onToggle}
           aria-label={
-            collapsed ? 'Expandir menu' : 'Recolher menu'
+            collapsed
+              ? 'Expandir menu'
+              : 'Recolher menu'
           }
         >
           {collapsed ? (
@@ -55,10 +67,15 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       </div>
 
       <div className={styles.content}>
-        <button type="button" className={styles.newListButton}>
+        <button
+          type="button"
+          className={styles.newListButton}
+        >
           <ListPlus size={18} />
 
-          {!collapsed && <span>Nova lista</span>}
+          {!collapsed && (
+            <span>Nova lista</span>
+          )}
         </button>
 
         {!collapsed && (
@@ -74,7 +91,9 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                   type="button"
                   className={styles.listItem}
                 >
-                  <span className={styles.listIcon} />
+                  <span
+                    className={styles.listIcon}
+                  />
 
                   <span>{list.name}</span>
                 </button>
@@ -85,20 +104,42 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       </div>
 
       <div className={styles.footer}>
-        <button type="button" className={styles.footerButton}>
+        <button
+          type="button"
+          className={styles.footerButton}
+        >
           <Settings size={18} />
 
-          {!collapsed && <span>Configurações</span>}
+          {!collapsed && (
+            <span>Configurações</span>
+          )}
+        </button>
+
+        <button
+          type="button"
+          className={styles.footerButton}
+          onClick={logout}
+        >
+          <LogOut size={18} />
+
+          {!collapsed && (
+            <span>Sair</span>
+          )}
         </button>
 
         <div className={styles.user}>
-          <div className={styles.avatar}>D</div>
+          <div className={styles.avatar}>
+            D
+          </div>
 
           {!collapsed && (
             <div className={styles.userInfo}>
-              <span className={styles.userName}>Douglas</span>
+              <span className={styles.userName}>
+                Douglas
+              </span>
+
               <span className={styles.userEmail}>
-                usuário
+                Usuário
               </span>
             </div>
           )}

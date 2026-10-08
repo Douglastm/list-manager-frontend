@@ -1,27 +1,37 @@
 import { useState } from 'react';
 import type { SubmitEvent } from 'react';
+
 import {
   CheckSquare,
   Lock,
   Mail,
 } from 'lucide-react';
+
 import {
   Link,
   useNavigate,
 } from 'react-router-dom';
 
-import { login } from '../../services/authService';
+import { useAuth } from '../../hooks/useAuth';
 
 import styles from './Login.module.css';
 
 export function Login() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { login } = useAuth();
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [email, setEmail] =
+    useState('');
+
+  const [password, setPassword] =
+    useState('');
+
+  const [loading, setLoading] =
+    useState(false);
+
+  const [error, setError] =
+    useState('');
 
   async function handleSubmit(
     event: SubmitEvent<HTMLFormElement>,
@@ -37,7 +47,9 @@ export function Login() {
         password,
       });
 
-      navigate('/', { replace: true });
+      navigate('/', {
+        replace: true,
+      });
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -75,7 +87,11 @@ export function Login() {
               E-mail
             </label>
 
-            <div className={styles.inputWrapper}>
+            <div
+              className={
+                styles.inputWrapper
+              }
+            >
               <Mail size={18} />
 
               <input
@@ -84,7 +100,9 @@ export function Login() {
                 placeholder="seu@email.com"
                 value={email}
                 onChange={(event) =>
-                  setEmail(event.target.value)
+                  setEmail(
+                    event.target.value,
+                  )
                 }
                 required
                 autoComplete="email"
@@ -97,7 +115,11 @@ export function Login() {
               Senha
             </label>
 
-            <div className={styles.inputWrapper}>
+            <div
+              className={
+                styles.inputWrapper
+              }
+            >
               <Lock size={18} />
 
               <input
@@ -106,7 +128,9 @@ export function Login() {
                 placeholder="Digite sua senha"
                 value={password}
                 onChange={(event) =>
-                  setPassword(event.target.value)
+                  setPassword(
+                    event.target.value,
+                  )
                 }
                 required
                 autoComplete="current-password"
@@ -122,14 +146,24 @@ export function Login() {
 
           <button
             type="submit"
-            className={styles.submitButton}
+            className={
+              styles.submitButton
+            }
             disabled={loading}
           >
-            {loading ? 'Entrando...' : 'Entrar'}
+            {loading
+              ? 'Entrando...'
+              : 'Entrar'}
           </button>
 
-          <div className={styles.registerLink}>
-            <span>Não tem uma conta?</span>
+          <div
+            className={
+              styles.registerLink
+            }
+          >
+            <span>
+              Não tem uma conta?
+            </span>
 
             <Link to="/register">
               Cadastre-se

@@ -5,6 +5,8 @@ import {
   Routes,
 } from 'react-router-dom';
 
+import { useAuth } from '../hooks/useAuth';
+
 import { Home } from '../pages/Home/Home';
 import { Login } from '../pages/Login/Login';
 import { Register } from '../pages/Register/Register';
@@ -12,7 +14,14 @@ import { Register } from '../pages/Register/Register';
 import { ProtectedRoute } from './ProtectedRoute';
 
 export function AppRoutes() {
-  const token = localStorage.getItem('accessToken');
+  const {
+    isAuthenticated,
+    loading,
+  } = useAuth();
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <BrowserRouter>
@@ -20,8 +29,11 @@ export function AppRoutes() {
         <Route
           path="/login"
           element={
-            token ? (
-              <Navigate to="/" replace />
+            isAuthenticated ? (
+              <Navigate
+                to="/"
+                replace
+              />
             ) : (
               <Login />
             )
@@ -31,8 +43,11 @@ export function AppRoutes() {
         <Route
           path="/register"
           element={
-            token ? (
-              <Navigate to="/" replace />
+            isAuthenticated ? (
+              <Navigate
+                to="/"
+                replace
+              />
             ) : (
               <Register />
             )
@@ -52,7 +67,11 @@ export function AppRoutes() {
           path="*"
           element={
             <Navigate
-              to={token ? '/' : '/login'}
+              to={
+                isAuthenticated
+                  ? '/'
+                  : '/login'
+              }
               replace
             />
           }

@@ -20,3 +20,9 @@ export interface RegisterResponse {
   name: string;
   email: string;
 }
+
+export interface AuthUser {
+  id: number;
+  name: string;
+  email: string;
+}
