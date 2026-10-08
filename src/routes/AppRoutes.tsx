@@ -7,6 +7,7 @@ import {
 
 import { Home } from '../pages/Home/Home';
 import { Login } from '../pages/Login/Login';
+import { Register } from '../pages/Register/Register';
 
 import { ProtectedRoute } from './ProtectedRoute';
 
@@ -23,6 +24,17 @@ export function AppRoutes() {
               <Navigate to="/" replace />
             ) : (
               <Login />
+            )
+          }
+        />
+
+        <Route
+          path="/register"
+          element={
+            token ? (
+              <Navigate to="/" replace />
+            ) : (
+              <Register />
             )
           }
         />

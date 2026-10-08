@@ -3,6 +3,8 @@ import { apiFetch } from './api';
 import type {
   LoginRequest,
   LoginResponse,
+  RegisterRequest,
+  RegisterResponse,
 } from '../types/auth';
 
 export async function login(
@@ -22,4 +24,16 @@ export async function login(
   );
 
   return response;
+}
+
+export async function register(
+  data: RegisterRequest,
+): Promise<RegisterResponse> {
+  return apiFetch<RegisterResponse>(
+    '/api/v1/users',
+    {
+      method: 'POST',
+      body: JSON.stringify(data),
+    },
+  );
 }
