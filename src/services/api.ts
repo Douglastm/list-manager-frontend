@@ -1,16 +1,17 @@
 import { getAccessToken } from '../utils/storage';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL =
+  import.meta.env.VITE_API_URL;
 
 export async function apiFetch<T>(
   endpoint: string,
   options?: RequestInit,
 ): Promise<T> {
-  const token = getAccessToken();
+  const token =
+    getAccessToken();
 
-  const headers = new Headers(
-    options?.headers,
-  );
+  const headers =
+    new Headers(options?.headers);
 
   headers.set(
     'Content-Type',
@@ -33,14 +34,19 @@ export async function apiFetch<T>(
   );
 
   if (!response.ok) {
-    const errorBody = await response
-      .json()
-      .catch(() => null);
+    const errorBody =
+      await response
+        .json()
+        .catch(() => null);
 
     throw new Error(
-      errorBody?.message ||
+      errorBody?.message ??
         'Erro ao realizar a requisição.',
     );
+  }
+
+  if (response.status === 204) {
+    return undefined as T;
   }
 
   return response.json();

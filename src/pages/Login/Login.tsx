@@ -74,7 +74,7 @@ export function Login() {
           <h1>List Manager</h1>
 
           <p>
-            Entre na sua conta para continuar
+            Entre na sua conta
           </p>
         </div>
 
@@ -92,20 +92,25 @@ export function Login() {
                 styles.inputWrapper
               }
             >
-              <Mail size={18} />
+              <Mail
+                size={18}
+                className={
+                  styles.inputIcon
+                }
+              />
 
               <input
                 id="email"
                 type="email"
-                placeholder="seu@email.com"
                 value={email}
                 onChange={(event) =>
                   setEmail(
                     event.target.value,
                   )
                 }
-                required
+                placeholder="Digite seu e-mail"
                 autoComplete="email"
+                required
               />
             </div>
           </div>
@@ -120,20 +125,25 @@ export function Login() {
                 styles.inputWrapper
               }
             >
-              <Lock size={18} />
+              <Lock
+                size={18}
+                className={
+                  styles.inputIcon
+                }
+              />
 
               <input
                 id="password"
                 type="password"
-                placeholder="Digite sua senha"
                 value={password}
                 onChange={(event) =>
                   setPassword(
                     event.target.value,
                   )
                 }
-                required
+                placeholder="Digite sua senha"
                 autoComplete="current-password"
+                required
               />
             </div>
           </div>
@@ -146,30 +156,24 @@ export function Login() {
 
           <button
             type="submit"
-            className={
-              styles.submitButton
-            }
+            className={styles.button}
             disabled={loading}
           >
             {loading
               ? 'Entrando...'
               : 'Entrar'}
           </button>
-
-          <div
-            className={
-              styles.registerLink
-            }
-          >
-            <span>
-              Não tem uma conta?
-            </span>
-
-            <Link to="/register">
-              Cadastre-se
-            </Link>
-          </div>
         </form>
+
+        <div className={styles.register}>
+          <span>
+            Não tem uma conta?
+          </span>
+
+          <Link to="/register">
+            Cadastre-se
+          </Link>
+        </div>
       </section>
     </main>
   );

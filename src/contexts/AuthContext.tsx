@@ -5,7 +5,11 @@ import {
   type ReactNode,
 } from 'react';
 
-import { login as loginService } from '../services/authService';
+import {
+  getCurrentUser,
+  login as loginService,
+  updateCurrentUser,
+} from '../services/authService';
 
 import {
   getAccessToken,
@@ -14,17 +18,24 @@ import {
 } from '../utils/storage';
 
 import type {
+  AuthUser,
   LoginRequest,
-  LoginResponse,
 } from '../types/auth';
 
+import type { UpdateUserRequest } from '../services/authService';
+
 interface AuthContextData {
+  user: AuthUser | null;
   token: string | null;
   loading: boolean;
   isAuthenticated: boolean;
 
   login: (
     data: LoginRequest,
+  ) => Promise<void>;
+
+  updateUser: (
+    data: UpdateUserRequest,
   ) => Promise<void>;
 
   logout: () => void;
@@ -42,48 +53,93 @@ interface AuthProviderProps {
 export function AuthProvider({
   children,
 }: AuthProviderProps) {
-  const [token, setToken] = useState<string | null>(
-    getAccessToken(),
-  );
+  const [user, setUser] =
+    useState<AuthUser | null>(null);
 
-  const [loading, setLoading] = useState(true);
+  const [token, setToken] =
+    useState<string | null>(
+      getAccessToken(),
+    );
 
-  const isAuthenticated = Boolean(token);
+  const [loading, setLoading] =
+    useState(true);
+
+  const isAuthenticated =
+    Boolean(token && user);
 
   useEffect(() => {
-    const storedToken = getAccessToken();
+    async function loadUser() {
+      const storedToken =
+        getAccessToken();
 
-    if (storedToken) {
-      setToken(storedToken);
+      if (!storedToken) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const currentUser =
+          await getCurrentUser();
+
+        setToken(storedToken);
+        setUser(currentUser);
+      } catch {
+        removeAccessToken();
+        setToken(null);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
     }
 
-    setLoading(false);
+    loadUser();
   }, []);
 
   async function login(
     data: LoginRequest,
   ): Promise<void> {
-    const response: LoginResponse =
+    const response =
       await loginService(data);
 
-    setAccessToken(response.accessToken);
+    setAccessToken(
+      response.accessToken,
+    );
 
-    setToken(response.accessToken);
+    setToken(
+      response.accessToken,
+    );
+
+    const currentUser =
+      await getCurrentUser();
+
+    setUser(currentUser);
+  }
+
+  async function updateUser(
+    data: UpdateUserRequest,
+  ): Promise<void> {
+    const updatedUser =
+      await updateCurrentUser(data);
+
+    setUser(updatedUser);
   }
 
   function logout(): void {
     removeAccessToken();
 
     setToken(null);
+    setUser(null);
   }
 
   return (
     <AuthContext.Provider
       value={{
+        user,
         token,
         loading,
         isAuthenticated,
         login,
+        updateUser,
         logout,
       }}
     >
