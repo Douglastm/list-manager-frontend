@@ -1,0 +1,404 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 260px;
+  height: 100vh;
+
+  background-color: #f7f7f8;
+  border-right: 1px solid #e5e5e5;
+
+  transition:
+    width 0.2s ease,
+    background-color 0.2s ease;
+
+  z-index: 1000;
+}
+
+.collapsed {
+  width: 68px;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 64px;
+  padding: 0 12px;
+
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background-color: #111111;
+  color: #ffffff;
+}
+
+.brandName {
+  overflow: hidden;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+/* ========================================
+   BOTÃO EXPANDIR / RECOLHER
+======================================== */
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  flex-shrink: 0;
+
+  padding: 0;
+
+  border-radius: 8px;
+
+  background: transparent;
+  color: #666666;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.toggleButton:hover {
+  background-color: #e9e9e9;
+  color: #111111;
+}
+
+/* ========================================
+   SIDEBAR RECOLHIDA
+======================================== */
+
+.collapsed .header {
+  justify-content: center;
+
+  padding: 0;
+}
+
+.collapsed .brand {
+  display: none;
+}
+
+.collapsed .toggleButton {
+  width: 36px;
+  height: 36px;
+
+  padding: 0;
+
+  border-radius: 10px;
+
+  background-color: #111111;
+  color: #ffffff;
+}
+
+.collapsed .toggleButton:hover {
+  background-color: #2a2a2a;
+  color: #ffffff;
+}
+
+/* ========================================
+   CONTENT
+======================================== */
+
+.content {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  padding: 16px 12px;
+
+  overflow-y: auto;
+}
+
+/* ========================================
+   NOVA LISTA
+======================================== */
+
+.newListButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  min-height: 42px;
+
+  padding: 0 12px;
+
+  border-radius: 10px;
+
+  background-color: #111111;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.newListButton:hover {
+  background-color: #2a2a2a;
+}
+
+.newListButton:active {
+  transform: scale(0.98);
+}
+
+.collapsed .newListButton {
+  justify-content: center;
+
+  padding: 0;
+}
+
+/* ========================================
+   SEÇÃO DE LISTAS
+======================================== */
+
+.section {
+  margin-top: 28px;
+}
+
+.sectionTitle {
+  display: block;
+
+  margin: 0 10px 10px;
+
+  color: #8a8a8a;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ========================================
+   LISTAS
+======================================== */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  min-height: 40px;
+
+  padding: 0 10px;
+
+  border-radius: 8px;
+
+  background: transparent;
+  color: #333333;
+
+  font-size: 14px;
+
+  text-align: left;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.listItem:hover {
+  background-color: #e9e9e9;
+  color: #111111;
+}
+
+.listIcon {
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background-color: #999999;
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 12px;
+
+  border-top: 1px solid #e5e5e5;
+}
+
+/* ========================================
+   CONFIGURAÇÕES
+======================================== */
+
+.footerButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  min-height: 40px;
+
+  padding: 0 10px;
+
+  border-radius: 8px;
+
+  background: transparent;
+  color: #444444;
+
+  font-size: 14px;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.footerButton:hover {
+  background-color: #e9e9e9;
+  color: #111111;
+}
+
+.collapsed .footerButton {
+  justify-content: center;
+
+  padding: 0;
+}
+
+/* ========================================
+   USUÁRIO
+======================================== */
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-height: 44px;
+
+  padding: 4px 6px;
+
+  border-radius: 8px;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background-color: #dddddd;
+  color: #333333;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+.userName {
+  overflow: hidden;
+
+  color: #222222;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.userEmail {
+  color: #888888;
+
+  font-size: 11px;
+}
+
+/* ========================================
+   SCROLLBAR
+======================================== */
+
+.content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+
+  background-color: #cccccc;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+  }
+
+  .collapsed {
+    width: 0;
+
+    overflow: hidden;
+
+    border: none;
+  }
+}
